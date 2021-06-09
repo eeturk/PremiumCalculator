@@ -2,6 +2,8 @@
 
 angular.module('calculateApp', []).controller('HomeController', function ($scope) {
 
+    $scope.dovalidation = false;
+
     $scope.occupationList = [
         {
             occupation: "Cleaner", rating: "Light Manual"
@@ -29,20 +31,18 @@ angular.module('calculateApp', []).controller('HomeController', function ($scope
     };
 
     $scope.DoCalculation = function (premium) {
-        
+        $scope.dovalidation = true;
         if ($scope.frmCalculate.$valid) {
             $scope.output = (premium.SumInsured * $scope.factor * premium.Age) / (1000 * 12);
             $("#divOutput").removeClass("hidden");
+            $scope.dovalidation = false;
         }
-        else {
-            alert("Please check your inputs");
-        }
-
     };
 
     $scope.resetForm = function () {     
         $scope.Premium = {};
         $("#divOutput").val();
-        $("#divOutput").addClass("hidden");
+        $("#divOutput").addClass("hidden");          
+        $scope.dovalidation = false;
     };
 });
