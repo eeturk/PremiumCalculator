@@ -18,7 +18,7 @@
             <div class="form-group">
                 <label for="lblAge">Age</label>
                 <input name="txtAge" type="text" class="form-control" placeholder="Enter Age"
-                       ng-model="Premium.Age" ng-required="true" />
+                       ng-model="Premium.Age" numbers-only ng-required="true" />
                 <span style="color:red" ng-show="dovalidation && frmCalculate.txtAge.$error.required">Required!</span>
             </div>
             <div class="form-group">
