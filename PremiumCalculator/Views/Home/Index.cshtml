@@ -16,16 +16,17 @@
                 <span style="color:red" ng-show="dovalidation && frmCalculate.txtName.$error.required">Required!</span>
             </div>
             <div class="form-group">
-                <label for="lblAge">Age</label>
-                <input name="txtAge" type="text" class="form-control" placeholder="Enter Age"
-                       ng-model="Premium.Age" numbers-only ng-required="true" />
-                <span style="color:red" ng-show="dovalidation && frmCalculate.txtAge.$error.required">Required!</span>
-            </div>
-            <div class="form-group">
                 <label for="lblDOB">Date of Birth</label>
                 <input name="txtDOB" type="date" class="form-control"
-                       ng-model="Premium.DOB" ng-required="true" />
+                       ng-model="Premium.DOB" ng-required="true" max="{{max}}" ng-change="calculateAge()" />
                 <span style="color:red" ng-show="dovalidation && frmCalculate.txtDOB.$error.required">Required!</span>
+                <span style="color:red" ng-show="frmCalculate.txtDOB.$dirty && frmCalculate.txtDOB.$error.max">DOB can't be a future date!</span>
+            </div>
+            <div class="form-group">
+                <label for="lblAge">Age</label>
+                <input name="txtAge" type="text" class="form-control" placeholder="Enter Age"
+                       ng-model="Premium.Age" ng-disabled="true" ng-required="true" />
+                <span style="color:red" ng-show="dovalidation && frmCalculate.txtAge.$error.required">Required!</span>
             </div>
             <div class="form-group">
                 <label for="lblOccupation">Occupation</label>
@@ -39,7 +40,7 @@
             <div class="form-group">
                 <label for="lblSumInsured">Death - Sum Insured</label>
                 <input name="txtSumInsured" type="text" class="form-control" placeholder="Enter Death Sum Insured"
-                       ng-model="Premium.SumInsured" ng-required="true" />
+                       ng-model="Premium.SumInsured" numbers-only ng-required="true" />
                 <span style="color:red" ng-show="dovalidation && frmCalculate.txtSumInsured.$error.required">Required!</span>
             </div>
             <input id="btnClear" type="reset" class="btn btn-primary text-uppercase" ng-click="resetForm()" />

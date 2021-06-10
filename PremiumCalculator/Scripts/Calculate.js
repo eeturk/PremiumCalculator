@@ -46,24 +46,40 @@ app.controller('HomeController', function ($scope) {
         }
     ];
 
+    $scope.max = new Date();
+
+    $scope.calculateAge = function () {
+      
+        var dt = $scope.Premium.DOB;
+        var ageDiffInMs = Date.now() - dt.getTime();
+        var age_dt = new Date(ageDiffInMs);
+        var age = Math.abs(age_dt.getUTCFullYear() - 1970);
+
+        $scope.Premium.Age = age;      
+    };
+
+
+
     $scope.findRatingFactor = function () {
         var ratingFactor = { "Professional": 1.0, "White Collar": 1.25, "Light Manual": 1.5, "Heavy Manual": 1.75 };
         $scope.factor = ratingFactor[$scope.Premium.Occupation];           
     };
 
     $scope.DoCalculation = function (premium) {
-        $scope.dovalidation = true;
+        $scope.dovalidation = true;      
         if ($scope.frmCalculate.$valid) {
-            $scope.output = (premium.SumInsured * $scope.factor * premium.Age) / (1000 * 12);
+            $scope.output = ((premium.SumInsured * $scope.factor * premium.Age) / (1000 * 12)).toFixed(2);
             $("#divOutput").removeClass("hidden");
             $scope.dovalidation = false;
         }
     };
 
     $scope.resetForm = function () {     
-        $scope.Premium = {};
+        $scope.Premium = angular.copy({});
         $("#divOutput").val();
-        $("#divOutput").addClass("hidden");          
+        $("#divOutput").addClass("hidden");           
+        $scope.frmCalculate.$setPristine();
+        $scope.frmCalculate.$setUntouched();
         $scope.dovalidation = false;
     };
 });
